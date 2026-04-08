@@ -29,3 +29,6 @@ rates.log
 VITE_SUPABASE
 scripts/*.png
 scripts/*.PNG
+scripts/.env
+scripts/venv/
+scripts/rates.log
