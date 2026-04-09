@@ -6,7 +6,7 @@ import { EarningsChart } from './components/EarningsChart'
 import { MintQuarterStats } from './components/MintQuarterStats'
 import { ActivityList } from './components/ActivityList'
 
-const TOKEN_IDS = ['green-satoshi-token-bsc', 'stepn', 'solana']
+const TOKEN_IDS = ['green-satoshi-token', 'stepn', 'polygon-ecosystem-token']
 
 function formatUpdatedAt(iso) {
   if (!iso) return null
@@ -17,7 +17,7 @@ export default function App() {
   const { rates, updatedAt, loading: ratesLoading, error: ratesError, refetch } = useRates()
   const { activities, loading: activitiesLoading, error: activitiesError, refetch: refetchActivities } = useActivities()
 
-  const gstJpy = rates?.['green-satoshi-token-bsc']?.jpy
+  const gstJpy = rates?.['green-satoshi-token']?.jpy
 
   return (
     <div className="min-h-screen bg-bg text-white" style={{ fontFamily: 'system-ui, sans-serif' }}>

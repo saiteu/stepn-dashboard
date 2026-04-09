@@ -1,5 +1,5 @@
 const TOKEN_META = {
-  'green-satoshi-token-bsc': {
+  'green-satoshi-token': {
     label: 'GST',
     color: 'text-green-400',
     border: 'border-green-400/30',
@@ -11,8 +11,8 @@ const TOKEN_META = {
     border: 'border-amber-400/30',
     bg: 'bg-amber-400/5',
   },
-  solana: {
-    label: 'SOL',
+  'polygon-ecosystem-token': {
+    label: 'POL',
     color: 'text-purple-400',
     border: 'border-purple-400/30',
     bg: 'bg-purple-400/5',

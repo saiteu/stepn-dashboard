@@ -3,7 +3,7 @@
 source "$(dirname "$0")/.env"
 
 RATES=$(curl -s \
-  "https://api.coingecko.com/api/v3/simple/price?ids=green-satoshi-token,stepn,matic-network&vs_currencies=usd,jpy&include_24hr_change=true")
+  "https://api.coingecko.com/api/v3/simple/price?ids=green-satoshi-token,stepn,polygon-ecosystem-token&vs_currencies=usd,jpy&include_24hr_change=true")
 
 JSON=$(echo $RATES | jq \
   --arg ts "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \

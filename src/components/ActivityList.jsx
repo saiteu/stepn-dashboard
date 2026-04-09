@@ -3,7 +3,7 @@ import { useState } from 'react'
 const PAGE_SIZE = 20
 
 function MintBadge({ value }) {
-  if (!value) return null
+  if (!value) return <span />
   return (
     <span className="text-xs font-mono bg-amber-400/10 text-amber-400 border border-amber-400/30 rounded px-1.5 py-0.5">
       Mint ×{value}
@@ -50,7 +50,7 @@ export function ActivityList({ activities, loading, error }) {
       {!loading && slice.length > 0 && (
         <>
           {/* Header */}
-          <div className="hidden sm:grid grid-cols-[auto_1fr_1fr_1fr_auto_auto] gap-x-4 px-3 text-xs text-gray-600 font-mono">
+          <div className="hidden sm:grid grid-cols-[auto_1fr_1fr_1fr_5rem_auto] gap-x-4 px-3 text-xs text-gray-600 font-mono">
             <span>日付</span>
             <span className="text-right">距離</span>
             <span className="text-right">時間</span>
@@ -63,7 +63,7 @@ export function ActivityList({ activities, loading, error }) {
             {slice.map((a) => (
               <li
                 key={a.id}
-                className="grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_1fr_auto_auto] gap-x-4 gap-y-0.5 items-center bg-bg3 rounded-lg px-3 py-2.5 text-sm"
+                className="grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_1fr_5rem_auto] gap-x-4 gap-y-0.5 items-center bg-bg3 rounded-lg px-3 py-2.5 text-sm"
               >
                 <span className="font-mono text-gray-400 text-xs">{a.date}</span>
                 <span className="font-mono text-white text-right hidden sm:block">
