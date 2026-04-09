@@ -15,7 +15,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RATES_GITHUB_TOKEN }}
         run: |
           RATES=$(curl -s \
-            "https://api.coingecko.com/api/v3/simple/price?ids=green-satoshi-token-bsc,stepn,solana&vs_currencies=usd,jpy&include_24hr_change=true")
+            "https://api.coingecko.com/api/v3/simple/price?ids=green-satoshi-token,stepn,matic-network&vs_currencies=usd,jpy&include_24hr_change=true")
           
           JSON=$(echo $RATES | jq \
             --arg ts "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
