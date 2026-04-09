@@ -170,25 +170,25 @@ create table activities (
 
 ```json
 {
-  "green-satoshi-token-bsc": {
-    "usd": 0.00124,
-    "usd_24h_change": 4.41,
-    "jpy": 0.195,
-    "jpy_24h_change": 4.38
+  "green-satoshi-token": {
+    "usd": 0.00164,
+    "usd_24h_change": -1.89,
+    "jpy": 0.26,
+    "jpy_24h_change": -1.4
   },
   "stepn": {
-    "usd": 0.01016,
-    "usd_24h_change": 1.91,
-    "jpy": 1.62,
-    "jpy_24h_change": 1.89
+    "usd": 0.01047,
+    "usd_24h_change": -2.28,
+    "jpy": 1.66,
+    "jpy_24h_change": -1.79
   },
-  "solana": {
-    "usd": 81.48,
-    "usd_24h_change": 2.24,
-    "jpy": 13005,
-    "jpy_24h_change": 2.22
+  "polygon-ecosystem-token": {
+    "usd": 0.0864,
+    "usd_24h_change": -6.78,
+    "jpy": 13.73,
+    "jpy_24h_change": -6.33
   },
-  "updated_at": "2026-04-07T06:59:37Z"
+  "updated_at": "2026-04-09T06:45:53Z"
 }
 ```
 
@@ -217,7 +217,7 @@ create table activities (
 ```bash
 #!/bin/bash
 source "$(dirname "$0")/.env"
-RATES=$(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=green-satoshi-token-bsc,stepn,solana&vs_currencies=usd,jpy&include_24hr_change=true")
+RATES=$(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=green-satoshi-token,stepn,polygon-ecosystem-token&vs_currencies=usd,jpy&include_24hr_change=true")
 JSON=$(echo $RATES | jq --arg ts "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" '. + {updated_at: $ts}')
 curl -s -X PATCH \
   -H "Authorization: token $GITHUB_TOKEN" \

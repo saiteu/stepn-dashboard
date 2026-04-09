@@ -17,6 +17,11 @@ export function useRates() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
       const { updated_at, ...rest } = data
+      const ggtUsd = rest['go-game-token']?.usd
+      const gmtUsd = rest['stepn']?.usd
+      if (ggtUsd && gmtUsd) {
+        rest['go-game-token'] = { ...rest['go-game-token'], ggt_per_gmt: ggtUsd / gmtUsd }
+      }
       setRates(rest)
       setUpdatedAt(updated_at)
     } catch (e) {

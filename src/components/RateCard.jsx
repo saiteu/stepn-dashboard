@@ -1,6 +1,6 @@
 const TOKEN_META = {
-  'green-satoshi-token': {
-    label: 'GST',
+  'go-game-token': {
+    label: 'GGT',
     color: 'text-green-400',
     border: 'border-green-400/30',
     bg: 'bg-green-400/5',
@@ -49,6 +49,11 @@ export function RateCard({ tokenId, data, loading, error }) {
             <span className="font-mono text-sm text-gray-300">¥{data.jpy?.toLocaleString('ja-JP', { maximumFractionDigits: 4 })}</span>
             <Change value={data.jpy_24h_change} />
           </div>
+          {data.ggt_per_gmt != null && (
+            <div className="font-mono text-xs text-gray-500">
+              {data.ggt_per_gmt.toFixed(4)} GMT
+            </div>
+          )}
         </>
       )}
     </div>
