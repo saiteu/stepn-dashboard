@@ -50,20 +50,20 @@ export function ActivityList({ activities, loading, error }) {
       {!loading && slice.length > 0 && (
         <>
           {/* Header */}
-          <div className="hidden sm:grid grid-cols-[auto_1fr_1fr_1fr_1fr_auto] gap-x-4 px-3 text-xs text-gray-600 font-mono">
+          <div className="hidden sm:grid grid-cols-[auto_1fr_1fr_1fr_auto_auto] gap-x-4 px-3 text-xs text-gray-600 font-mono">
             <span>日付</span>
             <span className="text-right">距離</span>
             <span className="text-right">時間</span>
             <span className="text-right">GST</span>
+            <span className="text-right">Mint</span>
             <span className="text-right">靴</span>
-            <span />
           </div>
 
           <ul className="flex flex-col gap-1.5">
             {slice.map((a) => (
               <li
                 key={a.id}
-                className="grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_1fr_1fr_auto] gap-x-4 gap-y-0.5 items-center bg-bg3 rounded-lg px-3 py-2.5 text-sm"
+                className="grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_1fr_auto_auto] gap-x-4 gap-y-0.5 items-center bg-bg3 rounded-lg px-3 py-2.5 text-sm"
               >
                 <span className="font-mono text-gray-400 text-xs">{a.date}</span>
                 <span className="font-mono text-white text-right hidden sm:block">
@@ -75,6 +75,9 @@ export function ActivityList({ activities, loading, error }) {
                 <span className="font-mono text-accent text-right hidden sm:block">
                   +{Number(a.gst_earned).toFixed(3)}
                 </span>
+                <div className="hidden sm:flex justify-end">
+                  <MintBadge value={a.mint_quarter} />
+                </div>
                 <span className="text-xs text-gray-500 text-right hidden sm:block capitalize">
                   {a.shoe_type?.toLowerCase()}
                 </span>
@@ -86,10 +89,6 @@ export function ActivityList({ activities, loading, error }) {
                     <span className="font-mono text-xs text-gray-400">{a.duration?.slice(0, 5)}</span>
                   </div>
                   <span className="font-mono text-accent text-sm">+{Number(a.gst_earned).toFixed(3)} GST</span>
-                </div>
-
-                <div className="sm:block hidden">
-                  <MintBadge value={a.mint_quarter} />
                 </div>
                 <div className="sm:hidden flex items-center gap-2 mt-0.5">
                   <span className="text-xs text-gray-600 capitalize">{a.shoe_type?.toLowerCase()}</span>
