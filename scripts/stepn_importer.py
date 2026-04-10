@@ -16,10 +16,14 @@ from tkinter import filedialog, ttk
 from pathlib import Path
 from datetime import datetime
 import requests
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 
 # ── 設定 ──────────────────────────────────────────────
-SUPABASE_URL = "https://swclijxfprwklcymwkbm.supabase.co"
-SUPABASE_KEY = "sb_publishable_PMviioq9SftBXiFmOKH-JQ_Wpls8qTZ"
+load_dotenv(Path(__file__).parent / '.env')
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 TABLE_NAME   = "activities"
 
 # ── Apple Vision OCR ──────────────────────────────────
