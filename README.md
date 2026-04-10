@@ -58,7 +58,7 @@ brew install jq python@3.14 python-tk@3.14
 cd ~/dev/stepn-dashboard/scripts
 python3.14 -m venv venv
 source venv/bin/activate
-pip install pyobjc-framework-Vision pyobjc-framework-Quartz requests
+pip install pyobjc-framework-Vision pyobjc-framework-Quartz requests python-dotenv
 ```
 
 ### 環境変数
@@ -66,8 +66,15 @@ pip install pyobjc-framework-Vision pyobjc-framework-Quartz requests
 ```bash
 # scripts/.env を作成
 GIST_ID=e22508f07d33d27720159220816ea28e
-GITHUB_TOKEN=ghp_xxxxxxxxxxxx   # scope: gist のみ
+GITHUB_TOKEN=ghp_xxxxxxxxxxxx        # scope: gist のみ
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your-service-role-key  # Supabase Settings → API → service_role
 ```
+
+> **注意**
+> - `stepn_importer.py` は RLS を回避するため **service_role key** を使用する
+> - anon key では RLS により INSERT が拒否される
+> - `scripts/.env` には service_role key が含まれるため、**絶対に git push しないこと**（`.gitignore` で除外済み）
 
 ```bash
 # .env.local を作成（React アプリ用）
@@ -82,12 +89,15 @@ npm install
 npm run dev
 ```
 
-### cron 設定（レート自動更新）
+### cron 設定（ローカルでのレート自動更新）
+
+レート更新は GitHub Actions（`update_rates.yml`）で自動実行されるため、通常は不要。
+ローカルでも動かしたい場合:
 
 ```bash
 crontab -e
-# 以下を追加:
-0 * * * * /Users/koukisaitou/dev/stepn-dashboard/scripts/fetch_rates.sh >> /Users/koukisaitou/dev/stepn-dashboard/scripts/rates.log 2>&1
+# 以下を追加（パスは実際の場所に合わせる）:
+0 * * * * ~/dev/stepn-dashboard/scripts/fetch_rates.sh >> ~/dev/stepn-dashboard/scripts/rates.log 2>&1
 ```
 
 ---
@@ -120,10 +130,10 @@ python3.14 import_activity.py *.png --yes
 
 ### レート更新
 
-cron で毎時自動実行される。手動で更新したい場合:
+GitHub Actions（`update_rates.yml`）で毎時自動実行される。手動で更新したい場合:
 
 ```bash
-/Users/koukisaitou/dev/stepn-dashboard/scripts/fetch_rates.sh
+~/dev/stepn-dashboard/scripts/fetch_rates.sh
 ```
 
 ---
@@ -156,7 +166,7 @@ stepn-dashboard/
 |---|---|
 | OCR が全部 null | ファイル名に日本語が含まれていないか確認 |
 | スクショがスキップされる | 画面を一番下までスクロールして再撮影 |
-| Supabase アップロード失敗 | `.env.local` の URL / anon key を確認 |
+| Supabase アップロード失敗 | `scripts/.env` の `SUPABASE_URL` / `SUPABASE_SERVICE_KEY` を確認（anon key は不可） |
 | レートが表示されない | Gist raw URL をブラウザで直接開いて確認 |
 | GitHub Pages が 404 | `vite.config.js` の `base: '/stepn-dashboard/'` を確認 |
 | GUI が起動しない | venv が有効化されているか確認 |
@@ -165,6 +175,6 @@ stepn-dashboard/
 # Gist 疎通確認
 curl -s "https://gist.githubusercontent.com/saiteu/e22508f07d33d27720159220816ea28e/raw/stepn_rates.json" | jq .
 
-# cron ログ確認
+# ローカル cron ログ確認
 cat ~/dev/stepn-dashboard/scripts/rates.log
 ```
